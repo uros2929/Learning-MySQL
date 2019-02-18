@@ -1,0 +1,16 @@
+table{
+    height: 50%;
+    margin:  5% auto;
+    position: relative;
+    width: 50%;
+    tr{
+        th{
+            border: 2px solid black;
+        }
+        td{
+            border: 1px solid black;  
+            height: 50px;
+            text-align: center;
+        }
+    }
+}

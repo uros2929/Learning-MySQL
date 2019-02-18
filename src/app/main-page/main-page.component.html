@@ -1,0 +1,21 @@
+<table>
+  <tr>
+    <th>ID</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Years</th>
+  </tr>
+  <tr *ngFor="let keys of fromServerKeys[0]">
+    <td>{{idFromSql[keys]}}</td>
+    <td>{{firstNameFromSql[keys]}}</td>
+    <td>{{lastNameFromSql[keys]}}</td>
+    <td>{{yearFromSql[keys]}}</td>
+  </tr>
+</table>
+
+<form>
+<input type="text" name="firstName" id="firstName">
+<input type="text" name="lastName" id="lastName">
+<input type="number" name="userYear" id="userYear">
+<input type="submit" value="submit" (click)="addUserGetValues($event)">
+</form>
