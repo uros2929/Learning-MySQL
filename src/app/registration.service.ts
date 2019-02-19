@@ -8,6 +8,7 @@ export class RegistrationService {
 
   _urlMain="http://localhost:3000/api/main"
   _urlAddUser="http://localhost:3000/api/addUser"
+  _urlRemoveUser="http://localhost:3000/api/removeUser"
   constructor(private _http:HttpClient) { }
 
   getAllUsers(){
@@ -15,5 +16,8 @@ export class RegistrationService {
   }
   addUser(newUser){
     return this._http.post(this._urlAddUser,newUser)
+  }
+  removeUser(userId){
+    return this._http.post(this._urlRemoveUser,userId)
   }
 }

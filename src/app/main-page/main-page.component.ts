@@ -24,6 +24,11 @@ export class MainPageComponent implements OnInit {
 
 
   getAllUsers() {
+    this.fromServerKeys = [];
+    this.idFromSql = [];
+    this.firstNameFromSql = [];
+    this.lastNameFromSql = [];
+    this.yearFromSql = [];
     this._register.getAllUsers().subscribe(
       res => {
         this.fromServerKeys.push(Object.keys(res));
@@ -46,14 +51,23 @@ export class MainPageComponent implements OnInit {
     this._register.addUser(newUserFromForm).subscribe(
       res => {
         console.log(res),
-        this.fromServerKeys = [];
-        this.idFromSql = [];
-        this.firstNameFromSql = [];
-        this.lastNameFromSql = [];
-        this.yearFromSql = [];
         this.getAllUsers()
       },
       err => { console.log(err) }
+    )
+  }
+
+  removeUser(event){
+    let userId=[event.target.id];
+    console.log(userId)
+    this._register.removeUser(userId).subscribe(
+      res=>{
+        console.log(res);
+        this.getAllUsers()
+      },
+      err=>{
+        console.log(err)
+      }
     )
   }
 }
