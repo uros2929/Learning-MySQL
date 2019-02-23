@@ -11,12 +11,23 @@
     <td>{{lastNameFromSql[keys]}}</td>
     <td>{{yearFromSql[keys]}}</td>
     <td id="{{idFromSql[keys]}}" class="btn-remove" (click)="removeUser($event)">Remove</td>
+    <td id="{{idFromSql[keys]}}" class="btn-edit" (click)="userInfo($event)">Edit</td>
   </tr>
 </table>
 
 <form>
-<input type="text" name="firstName" id="firstName">
-<input type="text" name="lastName" id="lastName">
-<input type="number" name="userYear" id="userYear">
+<input type="text" name="firstName" id="firstName" placeholder="First Name">
+<input type="text" name="lastName" id="lastName" placeholder="Last Name">
+<input type="number" name="userYear" id="userYear" placeholder="Years">
 <input type="submit" value="submit" (click)="addUserGetValues($event)">
 </form>
+
+<div class="modalFormEdit" id="modalFormEdit">
+  <h1 (click)="closeModalEdit()">X</h1><br>
+  <form id="formEdit">
+    <input type="text" name="firstName" id="firstName">
+    <input type="text" name="lastName" id="lastName">
+    <input type="number" name="userYear" id="userYear">
+    <input type="submit" value="submit" (click)="editUser($event)">
+    </form>
+</div>

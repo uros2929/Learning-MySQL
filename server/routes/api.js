@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/main', (req, res) => {
-    let sql = 'SELECT * FROM new_user';
+    let sql = 'SELECT * FROM new_user;';
     db.query(sql, (err, results) => {
         if (err) {
             throw err
@@ -43,16 +43,39 @@ router.post('/addUser', (req, res) => {
 })
 
 router.post('/removeUser', (req, res) => {
-    let userId=req.body;   
-    let sql = 'DELETE FROM new_user WHERE userID=?';       
-    db.query(sql,userId, (err, result) => { 
+    let userId = req.body;
+    let sql = 'DELETE FROM new_user WHERE userID=?';
+    db.query(sql, userId, (err, result) => {
         if (err) {
             throw err;
         }
         console.log(result)
         res.send(result)
     })
-}) 
+})
+
+router.post('/userInfo', (req, res) => {
+    let userId = req.body;
+    let sql = `SELECT * FROM new_user WHERE userID=?`;
+    db.query(sql, userId, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        console.log(result)
+        res.send(result)
+    })
+})
+router.post('/editUser', (req, res) => {
+    let params = req.body;
+    let sql = `UPDATE new_user SET firstName=?,lastName=?,userYear=? WHERE userID=?`;
+    db.query(sql, params, (err, result) => {
+        if (err) {
+            throw err;
+        }
+        console.log(result)
+        res.send(result)
+    })
+})
 
 
 

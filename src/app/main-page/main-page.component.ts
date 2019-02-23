@@ -14,7 +14,8 @@ export class MainPageComponent implements OnInit {
   firstNameFromSql = [];
   lastNameFromSql = [];
   yearFromSql = [];
-
+  userIdForEdit;
+  userFormForEdit=[];
   constructor(private _register: RegistrationService) { }
 
   ngOnInit() {
@@ -51,7 +52,8 @@ export class MainPageComponent implements OnInit {
     this._register.addUser(newUserFromForm).subscribe(
       res => {
         console.log(res),
-        this.getAllUsers()
+        this.getAllUsers();
+        event.target.form.reset();
       },
       err => { console.log(err) }
     )
@@ -59,7 +61,6 @@ export class MainPageComponent implements OnInit {
 
   removeUser(event){
     let userId=[event.target.id];
-    console.log(userId)
     this._register.removeUser(userId).subscribe(
       res=>{
         console.log(res);
@@ -69,6 +70,49 @@ export class MainPageComponent implements OnInit {
         console.log(err)
       }
     )
+  }
+  userInfo(event){
+    let userId=[event.target.id];
+    document.getElementById('modalFormEdit').style.display='block';
+    this.userIdForEdit=userId;
+    this._register.userInfo(userId).subscribe(
+      res=>{
+        console.log(res)
+        this.fillFormForEditUser(res[0].firstName,res[0].lastName,res[0].userYear);
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
+  editUser(event){
+    event.preventDefault();
+    this.userFormForEdit=[];
+    let form=document.getElementById('formEdit');
+    this.userFormForEdit=[form[0].value,form[1].value,form[2].value,this.userIdForEdit];
+    this._register.editUser(this.userFormForEdit).subscribe(
+      res=>{
+        console.log(res)
+        this.getAllUsers()
+        document.getElementById('modalFormEdit').style.display='none';
+
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+  }
+
+  fillFormForEditUser(firstName,lastName,userYear){
+    let form=document.getElementById('formEdit');
+    form[0].value=firstName;
+    form[1].value=lastName;
+    form[2].value=userYear;
+  }
+  
+  closeModalEdit(){
+    document.getElementById('modalFormEdit').style.display='none'; 
   }
 }
 
